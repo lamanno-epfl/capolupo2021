@@ -4,6 +4,7 @@ import matplotlib.gridspec as gridspec
 from matplotlib import transforms
 from typing import Any, Union, List, Optional
 
+
 def despline() -> None:
     ax1 = plt.gca()
     # Hide the right and top spines
@@ -147,3 +148,8 @@ def plot_pca_weights(
         for i in range(len(n_pc)):
             plot_pca_weights(components, feat_names, int(n_pc[i]), n_top, gs[i])
 
+def ixs_thatsort_a2b(a: np.ndarray, b: np.ndarray, check_content: bool = True) -> np.ndarray:
+    "This is super duper magic sauce to make the order of one list to be like another"
+    if check_content:
+        assert len(np.intersect1d(a, b)) == len(a), f"The two arrays are not matching"
+    return np.argsort(a)[np.argsort(np.argsort(b))]
